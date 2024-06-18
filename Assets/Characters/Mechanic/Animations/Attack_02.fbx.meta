@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a60a9d76487d81459cd385cf07b2434
+guid: 4044f49068ad5da44915825f15703978
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack_01
+      name: Attack_02
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 0
-      lastFrame: 10
+      firstFrame: 10
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

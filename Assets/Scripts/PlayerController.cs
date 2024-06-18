@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float runSpeed;
-    public float rotationSpeed;
-
-    float runSpeedDefault;
-
-    float attackCoolDown_default = 0.5f;
-    float attackCoolDown_current;
-
     Animator animator;
 
+    //----movement--------
+    float runSpeed;
+    public float runSpeedDefault;
+    public float rotationSpeed;
+
+    //------attacking------
+    float attackCoolDown_default = 1.0f;
+    float attackCoolDown_current = 0.0f;
     [HideInInspector] public bool isAttacking;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        runSpeedDefault = runSpeed;
-        attackCoolDown_current = attackCoolDown_default;
+        runSpeed = runSpeedDefault;
 
     }
 
@@ -29,37 +28,48 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        Attack();
+
+    }
+
+    void Attack()
+    {
 
         if(attackCoolDown_current > 0.0f)
         {
             attackCoolDown_current -= Time.deltaTime;
             isAttacking = true;
+            runSpeed = 0;
+
         }
         else
         {
-            runSpeed = runSpeedDefault;
+            animator.SetBool("isAttacking", false);
             isAttacking = false;
+            attackCoolDown_current = 0.0f;
+            runSpeed = runSpeedDefault;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && attackCoolDown_current <= 0.0f)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            runSpeed = 0.0f;
-            animator.SetTrigger("attack");
+            animator.SetBool("isAttacking", true);
             attackCoolDown_current = attackCoolDown_default;
         }
-
     }
 
     void Move()
     {
         Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
 
+
         if (direction != Vector3.zero)
         {
+            Debug.Log(direction);
+            animator.SetBool("isRunning", true);
             direction.Normalize();
             transform.forward = direction;
             transform.Translate(direction * runSpeed * Time.deltaTime, Space.World);
-            animator.SetBool("isRunning", true);
+        
         }
         else
         {
