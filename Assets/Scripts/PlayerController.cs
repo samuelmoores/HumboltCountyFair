@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
 
+    [HideInInspector] public bool isAttacking;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,16 +29,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-            
-        Debug.Log(attackCoolDown_current);
 
         if(attackCoolDown_current > 0.0f)
         {
             attackCoolDown_current -= Time.deltaTime;
+            isAttacking = true;
         }
         else
         {
             runSpeed = runSpeedDefault;
+            isAttacking = false;
         }
 
         if(Input.GetKeyDown(KeyCode.Space) && attackCoolDown_current <= 0.0f)
