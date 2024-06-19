@@ -14,21 +14,54 @@ public class PlayerController : MonoBehaviour
     //------attacking------
     float attackCoolDown_default = 1.0f;
     float attackCoolDown_current = 0.0f;
-    [HideInInspector] public bool isAttacking;
+    [HideInInspector] public bool attacking;
+    GameObject wrench;
+
+    //------damage-----
+    bool damaged = false;
+    bool startDamageTimer = false;
+    float damageTimer_current;
+    float damageTimer_default = 2.75f;
+    float damageAnimationTime = 2.25f;
+    public ParticleSystem ps;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         runSpeed = runSpeedDefault;
-
+        damageTimer_current = damageTimer_default;
+        wrench = GameObject.Find("Wrench");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Attack();
+        if(!damaged)
+        {
+            Move();
+            Attack();
+        }
+
+        Debug.Log(damageTimer_current);
+        
+        if (startDamageTimer && damageTimer_current > 0.0f)
+        {
+            damageTimer_current -= Time.deltaTime;
+
+            if(damageTimer_current < damageAnimationTime && !damaged && !attacking)
+            {
+                animator.SetTrigger("damage");
+                ps.Play();
+                damaged = true;
+            }
+
+        }
+        else
+        {
+            damageTimer_current = damageTimer_default;
+            damaged = false;
+        }
 
     }
 
@@ -38,14 +71,15 @@ public class PlayerController : MonoBehaviour
         if(attackCoolDown_current > 0.0f)
         {
             attackCoolDown_current -= Time.deltaTime;
-            isAttacking = true;
+            attacking = true;
             runSpeed = 0;
 
         }
         else
         {
             animator.SetBool("isAttacking", false);
-            isAttacking = false;
+            wrench.GetComponent<BoxCollider>().enabled = false;
+            attacking = false;
             attackCoolDown_current = 0.0f;
             runSpeed = runSpeedDefault;
         }
@@ -53,6 +87,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetBool("isAttacking", true);
+            wrench.GetComponent<BoxCollider>().enabled = true;
             attackCoolDown_current = attackCoolDown_default;
         }
     }
@@ -74,6 +109,24 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("isRunning", false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Clown") && !startDamageTimer)
+        {
+            startDamageTimer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Clown") && startDamageTimer && !attacking)
+        {
+            startDamageTimer = false;
+            damageTimer_current = damageTimer_default;
+            damaged = false;
         }
     }
 }

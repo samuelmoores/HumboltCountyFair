@@ -76,7 +76,7 @@ public class Clown : MonoBehaviour
 
     private void TakeDamage()
     {
-        playerAttacking = playerController.isAttacking;
+        playerAttacking = playerController.attacking;
 
         if (damaged && damageCooldown > 0.0f)
         {
@@ -105,6 +105,8 @@ public class Clown : MonoBehaviour
                 isDead = true;
                 animator.enabled = false;
                 GetComponent<CapsuleCollider>().enabled = false;
+                //GetComponent<BoxCollider>().enabled = false;
+
                 agent.enabled = false;
 
                 foreach (var rb in ragdollColliders)
