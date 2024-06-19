@@ -16,6 +16,8 @@ public class Clown : MonoBehaviour
     float health = 1.0f;
     bool isDead = false;
 
+    bool isAttacking = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +69,7 @@ public class Clown : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("PlayerWeapon") && playerAttacking && !damaged)
+        if(other.CompareTag("Player") && playerAttacking && !damaged)
         {
             damaged = true;
             animator.SetTrigger("damaged");
