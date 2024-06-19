@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
-            Debug.Log(direction);
             animator.SetBool("isRunning", true);
             direction.Normalize();
             transform.forward = direction;
