@@ -11,6 +11,7 @@ public class Clown : MonoBehaviour
     Rigidbody[] ragdollColliders;
     public GameObject[] balls;
     NavMeshAgent agent;
+    public ParticleSystem ps;
 
     bool playerAttacking;
     bool damaged;
@@ -32,6 +33,7 @@ public class Clown : MonoBehaviour
         damageCooldown = damageCooldown_default;
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
+        
 
         ragdollColliders = this.gameObject.GetComponentsInChildren<Rigidbody>();
 
@@ -80,19 +82,6 @@ public class Clown : MonoBehaviour
         {
             damageCooldown -= Time.deltaTime;
 
-            if (isDead && damageCooldown < 1.0f)
-            {
-                animator.enabled = false;
-                GetComponent<CapsuleCollider>().enabled = false;
-                agent.enabled = false;
-
-                foreach (var rb in ragdollColliders)
-                {
-                    rb.isKinematic = false;
-                }
-                damaged = false;
-            }
-
         }
         else
         {
@@ -105,6 +94,7 @@ public class Clown : MonoBehaviour
     {
         if(other.CompareTag("PlayerWeapon") && playerAttacking && !damaged)
         {
+            ps.Play();
             damaged = true;
             animator.SetTrigger("damaged");
             
@@ -113,6 +103,14 @@ public class Clown : MonoBehaviour
             if(health <= 0.0f)
             {
                 isDead = true;
+                animator.enabled = false;
+                GetComponent<CapsuleCollider>().enabled = false;
+                agent.enabled = false;
+
+                foreach (var rb in ragdollColliders)
+                {
+                    rb.isKinematic = false;
+                }
             }
         }
 
