@@ -3,7 +3,12 @@ guid: 24e737fa9f3cbb74db5d65a0819e0de4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Clown
+    second: {fileID: 2100000, guid: 86fa1b499519ab4409bd58fc05d80824, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

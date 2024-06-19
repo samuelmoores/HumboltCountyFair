@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b12a357b675654040ab6eab61666d064
+guid: 43cd305dc3ec4764fbf4e5b265a222ba
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_Clown
+      name: lambert19
     second: {fileID: 2100000, guid: 86fa1b499519ab4409bd58fc05d80824, type: 2}
   materials:
     materialImportMode: 2
@@ -38,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Walk
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
         if (direction != Vector3.zero)
         {
             animator.SetBool("isRunning", true);
+            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
             direction.Normalize();
             transform.forward = direction;
             transform.Translate(direction * runSpeed * Time.deltaTime, Space.World);
