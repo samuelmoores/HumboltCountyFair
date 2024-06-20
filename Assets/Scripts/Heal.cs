@@ -32,8 +32,6 @@ public class Heal : MonoBehaviour
         angle = 30.0f;
         rotationSpeed = 1.0f;
 
-        Debug.Log("Awake: " + gameObject);
-
         x = transform.position.x;
         y = transform.position.y;
         z = transform.position.z;
@@ -43,8 +41,6 @@ public class Heal : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.up, angle * Time.deltaTime * rotationSpeed);
-
-        Debug.Log(spawnPosition);
 
         if (collected)
         {
