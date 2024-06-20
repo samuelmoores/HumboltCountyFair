@@ -7,12 +7,19 @@ public class PlayerSoundEffects : MonoBehaviour
     public AudioClip[] footstep_clips;
     public AudioClip[] attackVoice_clips;
     public AudioClip[] attackWeapon_clips;
+    public AudioClip bodyFall_clip;
 
     AudioSource source;
 
     void Start()
     {
         source = GetComponent<AudioSource>();
+    }
+
+    public void PlayBodyFallSound()
+    {
+        source.clip = bodyFall_clip;
+        source.Play();
     }
 
     void PlaySound(AudioClip[] array, int size, float volume)
@@ -38,4 +45,6 @@ public class PlayerSoundEffects : MonoBehaviour
         PlaySound(attackWeapon_clips, 3, 1.0f);
 
     }
+
+    
 }

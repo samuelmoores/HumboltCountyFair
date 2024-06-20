@@ -54,7 +54,6 @@ public class Clown : MonoBehaviour
 
         float distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-
         if (!isDead)
         {
             if(damaged || distanceFromPlayer > 10.0f)
@@ -69,10 +68,7 @@ public class Clown : MonoBehaviour
                 animator.SetBool("playerFound", true);
            
             }
-
         }
-
-        
 
     }
 

@@ -5,11 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
+    Rigidbody[] ragdollColliders;
 
     //----movement--------
     float runSpeed;
     public float runSpeedDefault;
     public float rotationSpeed;
+
+    //-----health-----
+    [HideInInspector] public float health;
+    bool isDead = false;
 
     //------attacking------
     float attackCoolDown_default = 1.0f;
@@ -32,22 +37,50 @@ public class PlayerController : MonoBehaviour
         runSpeed = runSpeedDefault;
         damageTimer_current = damageTimer_default;
         wrench = GameObject.Find("Wrench");
+        health = 1.0f;
+
+        ragdollColliders = this.gameObject.GetComponentsInChildren<Rigidbody>();
+
+        foreach (var rb in ragdollColliders)
+        {
+            rb.isKinematic = true;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!damaged)
+        if (!damaged && !isDead)
         {
             Move();
             Attack();
         }
+        TakeDamage();
 
-        if (startDamageTimer && damageTimer_current > 0.0f && !attacking)
+    }
+
+    private void TakeDamage()
+    {
+        if(damaged)
+            health -= Time.deltaTime / 5;
+
+        if (health < 0.0f && !isDead)
+        {
+            GetComponent<PlayerSoundEffects>().PlayBodyFallSound();
+            isDead = true;
+            animator.enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
+            foreach (var rb in ragdollColliders)
+            {
+                rb.isKinematic = false;
+            }
+        }
+        else if (startDamageTimer && damageTimer_current > 0.0f && !attacking)
         {
             damageTimer_current -= Time.deltaTime;
 
-            if(damageTimer_current < damageAnimationTime && !damaged)
+            if (damageTimer_current < damageAnimationTime && !damaged && !isDead)
             {
                 animator.SetTrigger("damage");
                 ps.Play();
@@ -60,7 +93,6 @@ public class PlayerController : MonoBehaviour
             damageTimer_current = damageTimer_default;
             damaged = false;
         }
-
     }
 
     void Attack()

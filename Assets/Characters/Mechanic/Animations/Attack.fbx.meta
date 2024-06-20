@@ -57,14 +57,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: AttackGrunt
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 4b89de762456b234ab73c6b7d5c4d065, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.22894736
+      - time: 0.28197765
         functionName: AttackSwoosh
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4b89de762456b234ab73c6b7d5c4d065, type: 3}
@@ -73,6 +66,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.5545722
         functionName: AttackSwoosh
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4b89de762456b234ab73c6b7d5c4d065, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.77272725
+        functionName: AttackGrunt
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4b89de762456b234ab73c6b7d5c4d065, type: 3}
         floatParameter: 0
