@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: 796ac56686275974295750e798130103
+guid: be17e5e65c893914eb71fd64b084eb7e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Road_ParkingLot
-    second: {fileID: 2100000, guid: c48850b424616114f970e8e86adf47fc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_White
-    second: {fileID: 2100000, guid: 27f99e30bfd70664e80f66a569219644, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Yellow
-    second: {fileID: 2100000, guid: 14a8435a0f800b44cbe1dd6ea08ea537, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

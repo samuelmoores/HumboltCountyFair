@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
-    Rigidbody[] ragdollColliders;
+    Collider[] ragdollColliders;
+    Rigidbody[] ragdollRigidbodies;
+    Rigidbody rb;
+
 
     //----movement--------
     float runSpeed;
@@ -14,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     //-----health-----
     [HideInInspector] public float health;
-    bool isDead = false;
+    [HideInInspector] public bool isDead = false;
 
     //------attacking------
     float attackCoolDown_default = 1.0f;
@@ -39,12 +42,14 @@ public class PlayerController : MonoBehaviour
         wrench = GameObject.Find("Wrench");
         health = 1.0f;
 
-        ragdollColliders = this.gameObject.GetComponentsInChildren<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 
-        foreach (var rb in ragdollColliders)
-        {
-            rb.isKinematic = true;
-        }
+        ragdollColliders = this.gameObject.GetComponentsInChildren<Collider>();
+        ragdollRigidbodies = this.gameObject.GetComponentsInChildren<Rigidbody>();
+
+
+        //DisableRagDoll();
+        DisableRagdoll_rb();
 
     }
 
@@ -69,12 +74,8 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<PlayerSoundEffects>().PlayBodyFallSound();
             isDead = true;
-            animator.enabled = false;
-            GetComponent<CapsuleCollider>().enabled = false;
-            foreach (var rb in ragdollColliders)
-            {
-                rb.isKinematic = false;
-            }
+            //EnableRagDoll();
+            EnableRagdoll_rb();
         }
         else if (startDamageTimer && damageTimer_current > 0.0f && !attacking)
         {
@@ -159,6 +160,79 @@ public class PlayerController : MonoBehaviour
             startDamageTimer = false;
             damageTimer_current = damageTimer_default;
             damaged = false;
+        }
+    }
+
+    private void DisableRagDoll()
+    {
+        foreach (Collider collider in ragdollColliders)
+        {
+            if (collider.gameObject != this.gameObject)
+            {
+                collider.isTrigger = true;
+            }
+
+        }
+
+    }
+
+    private void EnableRagDoll()
+    {
+        animator.enabled = false;
+        animator.avatar = null;
+        GetComponent<CapsuleCollider>().isTrigger = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        runSpeed = 0.0f;
+
+        foreach (Collider collider in ragdollColliders)
+        {
+            if (collider.gameObject != this.gameObject)
+            {
+                collider.isTrigger = false;
+                collider.attachedRigidbody.velocity = Vector3.zero;
+            }
+
+        }
+    }
+
+    void DisableRagdoll_rb()
+    {
+        foreach (var rb in ragdollRigidbodies)
+        {
+            if(rb.gameObject != this.gameObject)
+                rb.isKinematic = true;
+        }
+
+        foreach (Collider collider in ragdollColliders)
+        {
+            if (collider.gameObject != this.gameObject)
+            {
+                collider.isTrigger = true;
+            }
+
+        }
+
+    }
+
+    void EnableRagdoll_rb()
+    {
+        GetComponent<CapsuleCollider>().enabled = false;
+        animator.enabled = false;
+
+        foreach (var rb in ragdollRigidbodies)
+        {
+            if (rb.gameObject != this.gameObject)
+                rb.isKinematic = false;
+        }
+
+        foreach (Collider collider in ragdollColliders)
+        {
+            if (collider.gameObject != this.gameObject)
+            {
+                collider.isTrigger = false;
+            }
+
         }
     }
 }
