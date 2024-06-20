@@ -5,12 +5,15 @@ using UnityEngine.AI;
 
 public class Clown : MonoBehaviour
 {
-    Animator animator;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public ClownSoundEffects soundEffects;
+    [HideInInspector] public bool attacking = false;
+    [HideInInspector] public bool isDead = false;
     public GameObject player;
     PlayerController playerController;
     Rigidbody[] ragdollColliders;
     public GameObject[] balls;
-    NavMeshAgent agent;
     public ParticleSystem ps;
 
     bool playerAttacking;
@@ -18,9 +21,8 @@ public class Clown : MonoBehaviour
     float damageCooldown;
     float damageCooldown_default = 2.0f;
     float health = 1.0f;
-    bool isDead = false;
 
-    bool attacking = false;
+    bool startJuggleSong = false;
 
 
 
@@ -33,8 +35,8 @@ public class Clown : MonoBehaviour
         damageCooldown = damageCooldown_default;
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
+        soundEffects = GetComponent<ClownSoundEffects>();
         
-
         ragdollColliders = this.gameObject.GetComponentsInChildren<Rigidbody>();
 
         foreach (var rb in ragdollColliders)
@@ -82,12 +84,30 @@ public class Clown : MonoBehaviour
         {
             damageCooldown -= Time.deltaTime;
 
+            if(isDead && damageCooldown < 1.35f)
+            {
+                animator.enabled = false;
+                GetComponent<CapsuleCollider>().enabled = false;
+                agent.enabled = false;
+
+                foreach (var rb in ragdollColliders)
+                {
+                    rb.isKinematic = false;
+                }
+            }
+
         }
         else
         {
             damaged = false;
             damageCooldown = damageCooldown_default;
+            if(attacking && !startJuggleSong)
+            {
+                soundEffects.PlayJuggleSong();
+                startJuggleSong = true;
+            }
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -97,32 +117,19 @@ public class Clown : MonoBehaviour
             ps.Play();
             damaged = true;
             animator.SetTrigger("damaged");
-            
+            soundEffects.StopJuggleSong();
+            startJuggleSong = false;
+
             health -= 0.5f;
 
             if(health <= 0.0f)
             {
                 isDead = true;
-                animator.enabled = false;
-                GetComponent<CapsuleCollider>().enabled = false;
-                //GetComponent<BoxCollider>().enabled = false;
-
-                agent.enabled = false;
-
-                foreach (var rb in ragdollColliders)
-                {
-                    rb.isKinematic = false;
-                }
+                
             }
         }
 
-        if(other.CompareTag("Player") && !isDead)
-        {
-            agent.isStopped = true;
-            animator.SetBool("isAttacking", true);
-            attacking = true;
-            
-        }
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -130,6 +137,7 @@ public class Clown : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             animator.SetBool("isAttacking", false);
+            soundEffects.StopJuggleSong();
             attacking = false;
             
         }

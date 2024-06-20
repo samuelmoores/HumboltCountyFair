@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Clown
   - PlayerWeapon
+  - ClownAttackZone
   layers:
   - Default
   - TransparentFX

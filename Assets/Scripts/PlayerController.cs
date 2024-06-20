@@ -18,10 +18,10 @@ public class PlayerController : MonoBehaviour
     GameObject wrench;
 
     //------damage-----
-    bool damaged = false;
+    [HideInInspector] public bool damaged = false;
     bool startDamageTimer = false;
     float damageTimer_current;
-    float damageTimer_default = 2.75f;
+    float damageTimer_default = 4.25f;
     float damageAnimationTime = 2.25f;
     public ParticleSystem ps;
 
@@ -43,13 +43,11 @@ public class PlayerController : MonoBehaviour
             Attack();
         }
 
-        Debug.Log(damageTimer_current);
-        
-        if (startDamageTimer && damageTimer_current > 0.0f)
+        if (startDamageTimer && damageTimer_current > 0.0f && !attacking)
         {
             damageTimer_current -= Time.deltaTime;
 
-            if(damageTimer_current < damageAnimationTime && !damaged && !attacking)
+            if(damageTimer_current < damageAnimationTime && !damaged)
             {
                 animator.SetTrigger("damage");
                 ps.Play();
@@ -72,14 +70,15 @@ public class PlayerController : MonoBehaviour
         {
             attackCoolDown_current -= Time.deltaTime;
             attacking = true;
+            wrench.GetComponent<BoxCollider>().enabled = true;
             runSpeed = 0;
 
         }
         else
         {
             animator.SetBool("isAttacking", false);
-            wrench.GetComponent<BoxCollider>().enabled = false;
             attacking = false;
+            wrench.GetComponent<BoxCollider>().enabled = false;
             attackCoolDown_current = 0.0f;
             runSpeed = runSpeedDefault;
         }
@@ -87,7 +86,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetBool("isAttacking", true);
-            wrench.GetComponent<BoxCollider>().enabled = true;
             attackCoolDown_current = attackCoolDown_default;
         }
     }
@@ -114,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Clown") && !startDamageTimer)
+        if(other.CompareTag("ClownAttackZone"))
         {
             startDamageTimer = true;
         }
@@ -122,7 +120,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Clown") && startDamageTimer && !attacking)
+        //when to stop damaging the player?
+        //exiting damage region
+        if(other.CompareTag("ClownAttackZone") && startDamageTimer)
         {
             startDamageTimer = false;
             damageTimer_current = damageTimer_default;
