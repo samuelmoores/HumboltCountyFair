@@ -33,7 +33,6 @@ public class SkeeBall : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.E))
         {
             Vector3 force = new Vector3(0.0f, 0.0f, 1000.0f * throwStrength);
-            Debug.Log(force);
             rb.AddForce(force);
             throwStrength = 0.0f;
             startTimer = true;
@@ -43,13 +42,13 @@ public class SkeeBall : MonoBehaviour
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if(timer > 3.0f)
+            if(timer > 2.0f)
             {
                 startTimer = false;
                 timer = 0.0f;
                 rb.velocity = Vector3.zero;
                 transform.position = startPosition;
-                Debug.Log(timer);
+                Debug.Log(transform.position);
                 play = true;
             }
         }

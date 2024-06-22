@@ -8,6 +8,7 @@ TagManager:
   - PlayerWeapon
   - ClownAttackZone
   - Entrance
+  - SkeeBall
   layers:
   - Default
   - TransparentFX

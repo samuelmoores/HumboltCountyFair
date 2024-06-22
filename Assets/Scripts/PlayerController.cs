@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
 
         //DisableRagDoll();
-        DisableRagdoll_rb();
+        DisableRagdoll();
 
     }
 
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
             GetComponent<PlayerSoundEffects>().PlayBodyFallSound();
             isDead = true;
             //EnableRagDoll();
-            EnableRagdoll_rb();
+            EnableRagdoll();
         }
         else if (startDamageTimer && damageTimer_current > 0.0f && !attacking)
         {
@@ -163,40 +163,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DisableRagDoll()
-    {
-        foreach (Collider collider in ragdollColliders)
-        {
-            if (collider.gameObject != this.gameObject)
-            {
-                collider.isTrigger = true;
-            }
-
-        }
-
-    }
-
-    private void EnableRagDoll()
-    {
-        animator.enabled = false;
-        animator.avatar = null;
-        GetComponent<CapsuleCollider>().isTrigger = true;
-        GetComponent<Rigidbody>().useGravity = false;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        runSpeed = 0.0f;
-
-        foreach (Collider collider in ragdollColliders)
-        {
-            if (collider.gameObject != this.gameObject)
-            {
-                collider.isTrigger = false;
-                collider.attachedRigidbody.velocity = Vector3.zero;
-            }
-
-        }
-    }
-
-    void DisableRagdoll_rb()
+   
+    void DisableRagdoll()
     {
         foreach (var rb in ragdollRigidbodies)
         {
@@ -215,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void EnableRagdoll_rb()
+    void EnableRagdoll()
     {
         GetComponent<CapsuleCollider>().enabled = false;
         animator.enabled = false;

@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class WinBox : MonoBehaviour
 {
+    public GameObject ticket;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().materials[1];
+        ticket.GetComponent<MeshRenderer>().enabled = false;
+        ticket.GetComponent<SphereCollider>().enabled = false;
+
+
+
     }
 
     // Update is called once per frame
@@ -20,8 +27,12 @@ public class WinBox : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("SkeeBall"))
         {
-            Debug.Log("You Win");
+            GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().materials[2];
+            ticket.GetComponent<SphereCollider>().enabled = true;
+            ticket.GetComponent<MeshRenderer>().enabled = true;
+
+
         }
-        
+
     }
 }
