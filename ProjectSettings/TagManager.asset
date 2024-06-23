@@ -9,6 +9,10 @@ TagManager:
   - ClownAttackZone
   - Entrance
   - SkeeBall
+  - CircusTent
+  - BrokenRide
+  - Ticket
+  - Battery
   layers:
   - Default
   - TransparentFX

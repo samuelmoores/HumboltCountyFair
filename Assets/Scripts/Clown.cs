@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static Unity.VisualScripting.Member;
 
 public class Clown : MonoBehaviour
 {
     [HideInInspector] public Animator animator;
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public ClownSoundEffects soundEffects;
-    [HideInInspector] public bool attacking = false;
+    [HideInInspector] public bool attacking;
     [HideInInspector] public bool isDead = false;
     public GameObject player;
+    public GameObject battery_prefab;
+    GameObject battery;
     PlayerController playerController;
     Rigidbody[] ragdollColliders;
     public GameObject[] balls;
@@ -21,9 +24,6 @@ public class Clown : MonoBehaviour
     float damageCooldown;
     float damageCooldown_default = 2.0f;
     float health = 1.0f;
-
-    bool startJuggleSong = false;
-
 
 
     // Start is called before the first frame update
@@ -36,6 +36,7 @@ public class Clown : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
         soundEffects = GetComponent<ClownSoundEffects>();
+        attacking = false;
         
         ragdollColliders = this.gameObject.GetComponentsInChildren<Rigidbody>();
 
@@ -50,9 +51,10 @@ public class Clown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TakeDamage();
-
+        playerAttacking = playerController.attacking;
         float distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
+
+        TakeDamage();
 
         if (!isDead)
         {
@@ -68,14 +70,13 @@ public class Clown : MonoBehaviour
                 animator.SetBool("playerFound", true);
            
             }
+
         }
 
     }
 
     private void TakeDamage()
     {
-        playerAttacking = playerController.attacking;
-
         if (damaged && damageCooldown > 0.0f)
         {
             damageCooldown -= Time.deltaTime;
@@ -97,30 +98,25 @@ public class Clown : MonoBehaviour
         {
             damaged = false;
             damageCooldown = damageCooldown_default;
-            if(attacking && !startJuggleSong)
-            {
-                soundEffects.PlayJuggleSong();
-                startJuggleSong = true;
-            }
+            
         }
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("PlayerWeapon") && playerAttacking && !damaged)
+        if(other.CompareTag("PlayerWeapon") && !damaged && !attacking)
         {
             ps.Play();
             damaged = true;
             animator.SetTrigger("damaged");
-            soundEffects.StopJuggleSong();
-            startJuggleSong = false;
 
-            health -= 0.5f;
+            health -= 1.1f;
 
             if(health <= 0.0f)
             {
                 isDead = true;
+                battery = GameObject.Instantiate(battery_prefab, transform.position, Quaternion.identity);
                 
             }
         }
@@ -128,14 +124,4 @@ public class Clown : MonoBehaviour
         
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            animator.SetBool("isAttacking", false);
-            soundEffects.StopJuggleSong();
-            attacking = false;
-            
-        }
-    }
 }

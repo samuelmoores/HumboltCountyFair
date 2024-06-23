@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     float runSpeed;
     public float runSpeedDefault;
     public float rotationSpeed;
+    public bool hasTicket;
+    public bool hasBattery;
 
     //-----health-----
     [HideInInspector] public float health;
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool damaged = false;
     bool startDamageTimer = false;
     float damageTimer_current;
-    float damageTimer_default = 4.25f;
+    float damageTimer_default = 2.50f;
     float damageAnimationTime = 2.25f;
     public ParticleSystem ps;
 
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour
         damageTimer_current = damageTimer_default;
         wrench = GameObject.Find("Wrench");
         health = 1.0f;
+        hasTicket = false;
+        hasBattery = false;
 
         rb = GetComponent<Rigidbody>();
 
@@ -68,7 +72,7 @@ public class PlayerController : MonoBehaviour
     private void TakeDamage()
     {
         if(damaged)
-            health -= Time.deltaTime / 5;
+            health -= Time.deltaTime / 4;
 
         if (health < 0.0f && !isDead)
         {
@@ -77,7 +81,7 @@ public class PlayerController : MonoBehaviour
             //EnableRagDoll();
             EnableRagdoll();
         }
-        else if (startDamageTimer && damageTimer_current > 0.0f && !attacking)
+        else if (startDamageTimer && damageTimer_current > 0.0f)
         {
             damageTimer_current -= Time.deltaTime;
 
@@ -116,11 +120,12 @@ public class PlayerController : MonoBehaviour
             runSpeed = runSpeedDefault;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isDead)
         {
             animator.SetBool("isAttacking", true);
             attackCoolDown_current = attackCoolDown_default;
         }
+
     }
 
     void Move()
@@ -148,6 +153,17 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("ClownAttackZone"))
         {
             startDamageTimer = true;
+        }
+
+        if(other.CompareTag("Ticket"))
+        {
+            Debug.Log("has ticket");
+            hasTicket = true;
+        }
+
+        if(other.CompareTag("Battery"))
+        {
+            hasBattery = true;
         }
     }
 

@@ -100,7 +100,7 @@ public class Clown_02 : MonoBehaviour
 
         if (attackTimer < 1.0f && !damaged)
         {
-            player.GetComponent<PlayerController>().health -= Time.deltaTime / 2;
+            player.GetComponent<PlayerController>().health -= Time.deltaTime;
 
             if (playSound)
             {
@@ -119,7 +119,7 @@ public class Clown_02 : MonoBehaviour
             Debug.Log("hit by player");
             damaged = true;
             attackTimer = 2.0f;
-            health -= 0.4f;
+            health -= 0.1f;
             if(health < 0.0f)
             {
                 isDead = true;
