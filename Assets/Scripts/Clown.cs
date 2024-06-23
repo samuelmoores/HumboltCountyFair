@@ -111,7 +111,7 @@ public class Clown : MonoBehaviour
             damaged = true;
             animator.SetTrigger("damaged");
 
-            health -= 1.1f;
+            health -= 0.3f;
 
             if(health <= 0.0f)
             {
