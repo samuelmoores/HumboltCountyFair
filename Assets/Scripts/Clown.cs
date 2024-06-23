@@ -17,7 +17,6 @@ public class Clown : MonoBehaviour
     PlayerController playerController;
     Rigidbody[] ragdollColliders;
     public GameObject[] balls;
-    public ParticleSystem ps;
 
     bool playerAttacking;
     bool damaged;
@@ -107,7 +106,6 @@ public class Clown : MonoBehaviour
     {
         if(other.CompareTag("PlayerWeapon") && !damaged && !playerController.isDead)
         {
-            ps.Play();
             damaged = true;
             animator.SetTrigger("damaged");
 

@@ -22,9 +22,9 @@ public class OnScreenMessages : MonoBehaviour
         player = GameObject.Find("Mechanic").GetComponent<PlayerController>();
         showMessage_entrance = false;
         messageBackground.SetActive(false);
-        entranceMessage = "Hello, the broken ride is in the back.\n Just look for the sparks";
+        entranceMessage = "W, A, S, D to move.\n Space to attack and 'E' to interact";
         circusTentClosedMessage = "Ticket required for entrance";
-        rideBrokenMessage = "The other battery went missing!";
+        rideBrokenMessage = "The ride is broken";
         rideFixedMessage = "You fixed the ride!";
 
     }
@@ -80,11 +80,21 @@ public class OnScreenMessages : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !player.hasBattery)
         {
             messageBackground.SetActive(false);
             message.SetActive(false);
 
+        }
+
+        if (gameObject.CompareTag("BrokenRide"))
+        {
+            if (player.hasBattery)
+            {
+                message.GetComponent<TextMeshProUGUI>().fontSize = 12;
+                message.GetComponent<TextMeshProUGUI>().text = "Game Developed by Sam Moores\n\n Music by Alexandr Zhelanov\n\n Sounds and Textures from opengameart.org\n";
+
+            }
         }
     }
 }

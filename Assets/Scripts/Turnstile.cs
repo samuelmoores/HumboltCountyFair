@@ -5,6 +5,7 @@ using UnityEngine;
 public class Turnstile : MonoBehaviour
 {
     PlayerController player;
+    public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,15 @@ public class Turnstile : MonoBehaviour
         if(other.CompareTag("Player") && player.hasTicket)
         {
             GetComponent<BoxCollider>().enabled = false;
+            gameManager.StopBGMusic();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") && player.hasBattery)
+        {
+            gameManager.PlayBGMusic();
         }
     }
 }

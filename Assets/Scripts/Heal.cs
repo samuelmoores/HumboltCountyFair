@@ -25,7 +25,7 @@ public class Heal : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = true;
 
         collected = false;
-        timer = 5.0f;
+        timer = 0.0f;
         x = 0.0f;
         y = 0.0f;
         z = 0.0f;
@@ -44,21 +44,16 @@ public class Heal : MonoBehaviour
 
         if (collected)
         {
-            timer -= Time.deltaTime;
+            timer += Time.deltaTime;
 
-            if(timer < 3.0f && timer > 0.0f)
+            if(timer > 3.0f)
             {
                 GetComponent<MeshRenderer>().enabled = false;
-            }
-            else if(timer < 0.0f)
-            {
-                GameObject healSpawn = GameObject.Instantiate(healSpawn_prefab, spawnPosition, Quaternion.identity);
                 Destroy(gameObject);
-                Debug.Log("Destroy");
             }
             else
             {
-                y += Time.deltaTime * 0.5f;
+                y += (Time.deltaTime / 2);
                 rotationSpeed += Time.deltaTime * 10;
                 Vector3 pos = new Vector3(x, y, z);
                 transform.position = pos;
@@ -70,7 +65,7 @@ public class Heal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && !collected && player.health < 1.0f)
+        if(other.CompareTag("Player") && !collected)
         {
             player.health = 1.0f;
             collected = true;

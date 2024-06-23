@@ -6,7 +6,7 @@ using UnityEngine;
 public class ClownSoundEffects : MonoBehaviour
 {
     public AudioClip[] footsteps;
-    public AudioClip bloodSplatter;
+    public AudioClip[] thwacks;
 
     AudioSource source;
 
@@ -28,7 +28,8 @@ public class ClownSoundEffects : MonoBehaviour
     void PlayBloodSplatter()
     {
         source.loop = false;
-        source.clip = bloodSplatter;
+        int index = Random.Range(0, 4);
+        source.clip = thwacks[index];
         source.Play();
     }
 

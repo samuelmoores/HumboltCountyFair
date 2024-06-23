@@ -32,4 +32,6 @@ public class BrokenRide : MonoBehaviour
             ps_fix.Play();
         }
     }
+
+    
 }
