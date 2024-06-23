@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_FoodStand
+    second: {fileID: 2100000, guid: 8947646b21243ed48a409c7213dcb8ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: 7e20efd49ebcd1647b2ab406ef250d1b, type: 2}
   materials:

@@ -105,13 +105,13 @@ public class Clown : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("PlayerWeapon") && !damaged && !attacking)
+        if(other.CompareTag("PlayerWeapon") && !damaged && !playerController.isDead)
         {
             ps.Play();
             damaged = true;
             animator.SetTrigger("damaged");
 
-            health -= 0.3f;
+            health -= 0.1f;
 
             if(health <= 0.0f)
             {

@@ -8,6 +8,8 @@ public class SkeeBall : MonoBehaviour
     public GameObject clown_02_prefab;
     public Vector3 spawnPosition;
     public Quaternion spawnRotation;
+    public AudioClip spawnSound;
+    public AudioClip hornSound;
     GameObject clown_02;
     public ParticleSystem ps;
 
@@ -75,6 +77,8 @@ public class SkeeBall : MonoBehaviour
                 clownSpawned = true;
                 clown_02 = GameObject.Instantiate(clown_02_prefab, spawnPosition, spawnRotation);
                 ps.Play();
+                AudioSource.PlayClipAtPoint(spawnSound, spawnPosition);
+                AudioSource.PlayClipAtPoint(hornSound, spawnPosition);
 
             }
             

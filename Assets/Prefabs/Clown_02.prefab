@@ -832,6 +832,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSound: {fileID: 8300000, guid: fc9b0c10f91e0a145a893615994dada2, type: 3}
+  damageSounds:
+  - {fileID: 8300000, guid: a8c29c57265d744458911b64c111dd84, type: 3}
+  - {fileID: 8300000, guid: 19971468f4a37a246a3a336cda1fe744, type: 3}
+  - {fileID: 8300000, guid: ad0237907f914c741a0de49d5da961d9, type: 3}
+  thwhackSounds:
+  - {fileID: 8300000, guid: 7aa991b44125970458c315ccbd38cfe6, type: 3}
+  - {fileID: 8300000, guid: 87f46cbc6a2c288428272531fcb9cc3d, type: 3}
+  - {fileID: 8300000, guid: 91f89d3ea447d154d914668f920b0dcd, type: 3}
 --- !u!195 &2799688791964074830
 NavMeshAgent:
   m_ObjectHideFlags: 0

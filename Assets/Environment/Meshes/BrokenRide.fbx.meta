@@ -7,6 +7,41 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_BrokenRideChair
+    second: {fileID: 2100000, guid: 36a6c9a7c6ef80b46b920c81e6fb730e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BrokenRide_01
+    second: {fileID: 2100000, guid: 9b7d32121592c1b47977c921690358ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BrokenRide_02
+    second: {fileID: 2100000, guid: 7b4d01c3579438343b101ed9d1ddc3e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BrokenRide_03
+    second: {fileID: 2100000, guid: b6da626737ad39546adb50a41bf8cd3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BrokenRide_Door
+    second: {fileID: 2100000, guid: 05e6a75f55f5c7a4a9d403a27ffdae9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BrokenRide_Engine_Inside
+    second: {fileID: 2100000, guid: 8fc514ba6cb26a340b9f7d66f06fad92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_BrokenRide_Engine_Outside
+    second: {fileID: 2100000, guid: 7b28e4147e04ab146a11b31854d6b099, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: 7e20efd49ebcd1647b2ab406ef250d1b, type: 2}
   materials:

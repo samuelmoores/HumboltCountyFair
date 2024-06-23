@@ -10,6 +10,7 @@ public class Battery : MonoBehaviour
     float collectionTimer;
     public ParticleSystem ps;
     float translateSpeed;
+    public AudioClip collectSound;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class Battery : MonoBehaviour
         if(collectionTimer < 5.0f)
         {
             ps.Play();
+            AudioSource.PlayClipAtPoint(collectSound, transform.position, 1.0f);
             GetComponent<MeshRenderer>().enabled = false;
         }
         

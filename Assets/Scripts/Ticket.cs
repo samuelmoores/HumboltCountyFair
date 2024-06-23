@@ -7,6 +7,7 @@ public class Ticket : MonoBehaviour
     float rotationSpeed;
     float angle;
     bool collected;
+    public AudioClip collectSound;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class Ticket : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             collected = true;
+            AudioSource.PlayClipAtPoint(collectSound, transform.position);
         }
     }
 }

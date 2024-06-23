@@ -1,13 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 
 public class Clown_02 : MonoBehaviour
 {
     public AudioClip attackSound;
+    public AudioClip[] damageSounds;
+    public AudioClip[] thwhackSounds;
     NavMeshAgent agent;
     GameObject player;
     PlayerController playerController;
@@ -21,11 +22,13 @@ public class Clown_02 : MonoBehaviour
     float distanceFromPlayer;
     int velocity;
     float playerHealth;
-    bool playSound;
     bool isDead;
     bool damaged;
     float damageTimer;
     float health;
+    bool playedDamageSound;
+    int damageSoundIndex = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,15 +38,15 @@ public class Clown_02 : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         source = GetComponent<AudioSource>();
         playerController = player.GetComponent<PlayerController>();
-        attackTimer = 2.0f;
+        attackTimer = 2.5f;
         isAttacking = false;
-        playSound = true;
         damaged = false;
-        damageTimer = 0.5f;
+        damageTimer = 1.15f;
         health = 1.0f;
         ragdollColliders = this.gameObject.GetComponentsInChildren<Collider>();
         ragdollRigidbodies = this.gameObject.GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
+        playedDamageSound = false;
     }
 
     // Update is called once per frame
@@ -61,17 +64,17 @@ public class Clown_02 : MonoBehaviour
             animator.SetBool("isDamaged", damaged);
 
             //start chasing
-            if(distanceFromPlayer < 10.0f && distanceFromPlayer > 1.0f)
+            if (distanceFromPlayer < 10.0f && distanceFromPlayer > 1.0f && !damaged)
             {
                 agent.destination = playerPosition;
             }
-            else if(distanceFromPlayer < 1.0f && !isAttacking && playerHealth > 0.0f)
+            else if(distanceFromPlayer < 1.0f && !isAttacking && playerHealth > 0.0f && !damaged)
             {
                 isAttacking = true;
             }
 
             //start attacking
-            if(isAttacking && distanceFromPlayer < 1.0f && attackTimer > 0.0f)
+            if(isAttacking && distanceFromPlayer < 1.0f && attackTimer > 0.0f && !damaged)
             {
                 Attack();
 
@@ -79,47 +82,75 @@ public class Clown_02 : MonoBehaviour
             else
             {
                 isAttacking = false;
-                playSound = true;
-                attackTimer = 2.0f;
+                attackTimer = 2.5f;
             }
 
             if(damaged && damageTimer > 0.0f)
             {
                 damageTimer -= Time.deltaTime;
+                if(damageTimer < 1.0f && !playedDamageSound)
+                {
+                    if (damageSoundIndex == 3)
+                    {
+                        damageSoundIndex = 0;
+                    }
+
+                    source.clip = damageSounds[damageSoundIndex++];
+                    source.Play();
+                    playedDamageSound = true;
+                }
             }
             else
             {
+                playedDamageSound = false;
                 damaged = false;
+                damageTimer = 1.15f;
             }
         }
+    }
+
+    void PlayWhirlSound()
+    {
+        source.clip = attackSound;
+        source.Play();
     }
 
     private void Attack()
     {
-        attackTimer -= Time.deltaTime;
 
-        if (attackTimer < 1.0f && !damaged)
+        attackTimer -= Time.deltaTime;
+        
+        if (attackTimer < 1.00f && !damaged)
         {
             player.GetComponent<PlayerController>().health -= Time.deltaTime;
 
-            if (playSound)
-            {
-                source.clip = attackSound;
-                source.Play();
-                playSound = false;
-            }
 
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("PlayerWeapon") && playerController.attacking && !damaged && attackTimer > 1.0f)
+        if(other.CompareTag("PlayerWeapon") && playerController.attacking && !damaged && attackTimer > 1.6f)
         {
-            Debug.Log("hit by player");
             damaged = true;
+            Debug.Log(attackTimer);
+
+            int i = 0;
+            if (i < 3)
+            {
+                i++;
+            }
+            else
+            {
+                i = 0;
+            }
+
+            source.clip = thwhackSounds[i];
+            source.Play();
+
             attackTimer = 2.0f;
-            health -= 0.1f;
+            health -= 0.3f;
             if(health < 0.0f)
             {
                 isDead = true;

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7791486788655378091, guid: eda20578bc9fd7341b64bba33b7db6f9, type: 3}
+  - {fileID: 2100000, guid: 590c5a20bac76e14db29802306aff83c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ps: {fileID: 9026112879452206232}
+  collectSound: {fileID: 8300000, guid: 47f78658d303d9843a28f98e332b9135, type: 3}
 --- !u!135 &5904718304234475494
 SphereCollider:
   m_ObjectHideFlags: 0

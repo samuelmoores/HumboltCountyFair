@@ -106,8 +106,12 @@ public class PlayerController : MonoBehaviour
         if(attackCoolDown_current > 0.0f)
         {
             attackCoolDown_current -= Time.deltaTime;
-            attacking = true;
-            wrench.GetComponent<BoxCollider>().enabled = true;
+
+            if(attackCoolDown_current < 0.75)
+            {
+                attacking = true;
+                wrench.GetComponent<BoxCollider>().enabled = true;
+            }
             runSpeed = 0;
 
         }

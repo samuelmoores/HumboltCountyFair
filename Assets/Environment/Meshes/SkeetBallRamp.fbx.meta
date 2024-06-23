@@ -7,6 +7,46 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_GameTent_01
+    second: {fileID: 2100000, guid: 865db3422e159994d90aed21f1aaa480, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_GameTent_02
+    second: {fileID: 2100000, guid: 14690962646c77249a849866d3a63731, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_GameTent_03
+    second: {fileID: 2100000, guid: 3e7be28ee0a7d004c8735b095630ef49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_GameTent_Flag
+    second: {fileID: 2100000, guid: a206d8f87f3172046b6f697806dad655, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SkeeTable
+    second: {fileID: 2100000, guid: ffea503a9e7e597428367baa2209bfc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SkeeTableFront
+    second: {fileID: 2100000, guid: a3db446fcdc435d41af096ec3659bca2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SkeeTable_Sides
+    second: {fileID: 2100000, guid: 0c9f8d8e287cd5f4cad133cff9de57c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SkeeTarget
+    second: {fileID: 2100000, guid: bead1881a0ba0bb45aefb53bdd833796, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: 7e20efd49ebcd1647b2ab406ef250d1b, type: 2}
   materials:

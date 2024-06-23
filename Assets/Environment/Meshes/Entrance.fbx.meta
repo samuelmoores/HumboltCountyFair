@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Entrance
+    second: {fileID: 2100000, guid: 5ec27e7dc1a88f24db337e4b22431e10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: 7e20efd49ebcd1647b2ab406ef250d1b, type: 2}
   materials:

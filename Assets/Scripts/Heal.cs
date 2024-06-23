@@ -30,7 +30,7 @@ public class Heal : MonoBehaviour
         y = 0.0f;
         z = 0.0f;
         angle = 30.0f;
-        rotationSpeed = 1.0f;
+        rotationSpeed = 3.0f;
 
         x = transform.position.x;
         y = transform.position.y;
@@ -40,7 +40,7 @@ public class Heal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up, angle * Time.deltaTime * rotationSpeed);
+        transform.Rotate(Vector3.up, angle * Time.deltaTime * rotationSpeed, Space.World);
 
         if (collected)
         {

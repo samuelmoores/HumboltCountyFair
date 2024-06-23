@@ -7,6 +7,36 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Booth_Bottom
+    second: {fileID: 2100000, guid: 590c5a20bac76e14db29802306aff83c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Booth_Counter
+    second: {fileID: 2100000, guid: e627d986b5ed9854eb4371cc6f2f5ad4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Booth_Middle
+    second: {fileID: 2100000, guid: 144274b9663343a41ae06d19452d527a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Booth_Roof
+    second: {fileID: 2100000, guid: 266d379b04bd40a408f016b5c84de4d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Booth_Top
+    second: {fileID: 2100000, guid: 21bb08d5140226144878b28035c03499, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Glass
+    second: {fileID: 2100000, guid: ab78e84cd348dda499f670a8cccae328, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: 7e20efd49ebcd1647b2ab406ef250d1b, type: 2}
   materials:
